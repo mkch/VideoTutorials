@@ -44,6 +44,7 @@ func StartServer(ctx context.Context, port string, shutdown chan<- struct{}) {
 				break
 			}
 			log.Printf("Server Error: %v\n", err)
+			continue
 		}
 
 		// Worker goroutine for incoming client.
