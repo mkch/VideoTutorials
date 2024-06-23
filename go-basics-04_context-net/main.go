@@ -11,6 +11,23 @@ import (
 	"time"
 )
 
+func connLoop(ctx context.Context, l net.Listener) error {
+	// 1
+	context.AfterFunc(ctx, func() { l.Close() })
+	for {
+		conn, err := l.Accept()
+		if err != nil {
+			if errors.Is(err, net.ErrClosed) {
+				// 2
+				return nil
+			}
+			return err
+		}
+		// 处理 conn
+		_ = conn
+	}
+}
+
 const addr = "8888"
 
 // StartServer starts a TCP server listening ":port".
