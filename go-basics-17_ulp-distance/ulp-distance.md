@@ -10,10 +10,6 @@
 
 ```go
 func ulpDistance(a, b float64) (n int) {
-    if a > b {
-        a, b = b, a
-    }
-
     for i := a; i != b; i = math.Nextafter(i, b) {
         n++
     }
